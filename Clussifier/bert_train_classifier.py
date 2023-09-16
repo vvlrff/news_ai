@@ -1,23 +1,25 @@
 import numpy as np
+
 import torch
+
+from bert_classifier import BertClassifier
+
 from transformers import BertTokenizer, BertForSequenceClassification
-from torch.utils.data import Dataset, DataLoader
 from transformers import AdamW, get_linear_schedule_with_warmup
+
+from torch.utils.data import DataLoader
 
 from bert_dataset import CustomDataset
 
-class BertClassifier:
+class BertTrainClassifier(BertClassifier):
 
-    def __init__(self, model_path, tokenizer_path, n_classes=2, epochs=1, model_save_path='/content/bert.pt'):
+    def __init__(self, model_path, tokenizer_path, n_classes=2, epochs=1, model_save_path='/Data/bert.pt'):
+        super().__init__(model_path=model_path, tokenizer_path=tokenizer_path)
+
         self.model = BertForSequenceClassification.from_pretrained(model_path)
-        self.tokenizer = BertTokenizer.from_pretrained(tokenizer_path)
-        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         self.model_save_path=model_save_path
-        self.max_len = 512
-        self.epochs = epochs
         self.out_features = self.model.bert.encoder.layer[1].output.dense.out_features
         self.model.classifier = torch.nn.Linear(self.out_features, n_classes)
-        self.model.to(self.device)
     
     def preparation(self, X_train, y_train, X_valid, y_valid):
         # create datasets
@@ -111,32 +113,3 @@ class BertClassifier:
 
         self.model = torch.load(self.model_save_path)
     
-    def predict(self, text):
-        encoding = self.tokenizer.encode_plus(
-            text,
-            add_special_tokens=True,
-            max_length=self.max_len,
-            return_token_type_ids=False,
-            truncation=True,
-            padding='max_length',
-            return_attention_mask=True,
-            return_tensors='pt',
-        )
-        
-        out = {
-              'text': text,
-              'input_ids': encoding['input_ids'].flatten(),
-              'attention_mask': encoding['attention_mask'].flatten()
-          }
-        
-        input_ids = out["input_ids"].to(self.device)
-        attention_mask = out["attention_mask"].to(self.device)
-        
-        outputs = self.model(
-            input_ids=input_ids.unsqueeze(0),
-            attention_mask=attention_mask.unsqueeze(0)
-        )
-        
-        prediction = torch.argmax(outputs.logits, dim=1).cpu().numpy()[0]
-
-        return prediction
