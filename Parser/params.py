@@ -12,12 +12,11 @@ CHANNELS = {0: ['https://t.me/sportsru', 'https://t.me/Match_TV', 'https://t.me/
             1: ['https://t.me/exploitex', 'https://t.me/whackdoor', 'https://t.me/dataleak', 'https://t.me/techrocks', 'https://t.me/nuancesprog'], # технологии
             2: ['https://t.me/bankoffo', 'https://t.me/KotElviry', 'https://t.me/mamkinfinansist', 'https://t.me/banksta', 'https://t.me/bankirosru'], # финансы
             3: ['https://t.me/yurasumy', 'https://t.me/medvedev_telegram', 'https://t.me/SolovievLive', 'https://t.me/ironlogica', 'https://t.me/karaulny'], # Политика
-            0: ['https://t.me/sportsru'], # Шоубиз
-            0: ['https://t.me/sportsru'], # Fashion
-            0: ['https://t.me/sportsru'], # Крипта
-            0: ['https://t.me/sportsru'], # Путешествия
-            0: ['https://t.me/sportsru'], # Образование
-            0: ['https://t.me/sportsru'], # Развлечения
-            0: ['https://t.me/sportsru']  # Общее
-            } 
+            4: ['https://t.me/slyhi117', 'https://t.me/hotshoubiz', 'https://t.me/Russianfo', 'https://t.me/showbiz100', 'https://t.me/persono'], # Шоубиз
+            5: ['https://t.me/goodmorningkarl', 'https://t.me/superficialspacecadet', 'https://t.me/shoesanddrinks', 'https://t.me/megastil', 'https://t.me/frontfashion'], # Fashion
+            6: ['https://t.me/InvestTOP_ru', 'https://t.me/topslivs', 'https://t.me/forklog', 'https://t.me/cryptodaily', 'https://t.me/crypto_an'], # Крипта
+            7: ['https://t.me/PobedaAirlines', 'https://t.me/fpcrussia', 'https://t.me/vandroukiru', 'https://t.me/mikearoundtheworld', 'https://t.me/yuttravel_turizm'], # Путешествия
+            8: ['https://t.me/ru_education', 'https://t.me/edtrends', 'https://t.me/free_edu', 'https://t.me/lektorium20', 'https://t.me/physics_lib'], # Образование
+            9: ['https://t.me/AnekdotikHi', 'https://t.me/jewishpugs', 'https://t.me/anekru_anekdot', 'https://t.me/anekdotiuss', 'https://t.me/humor_anekdotnya'] # Развлечения
+            } # Общее
 
