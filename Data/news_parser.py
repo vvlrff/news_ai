@@ -16,7 +16,7 @@ class News_parser:
         self.channels = CHANNELS
         self.row_info = []
 
-        self.searching_period = datetime.now() - timedelta(days=30)
+        self.searching_period = datetime.now() - timedelta(days=10)
 
     def remove_links(self, text):
         # Шаблон для поиска ссылок в тексте

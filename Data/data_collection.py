@@ -55,10 +55,10 @@ with open(r"Data\Data.csv", mode="w", encoding='utf-8', newline='') as w_file:
 data = pd.read_csv(r"Data\Data.csv", encoding='utf-8')
 data = data.sample(frac=1)
 
-total_len = data.shape[0]
-train_data = data[:total_len-30000]
-valid_data = data[total_len-30000:total_len-15000]
-test_data  = data[total_len-15000:]
+total_len = data.shape[0] // 4
+train_data = data[:total_len-7000]
+valid_data = data[total_len-7000:total_len-3500]
+test_data  = data[total_len-3500:total_len]
 
 train_data.columns =['text', 'label']
 valid_data.columns =['text', 'label']
