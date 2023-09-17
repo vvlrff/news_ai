@@ -18,6 +18,7 @@ class BertTrainClassifier(BertClassifier):
 
         self.model = BertForSequenceClassification.from_pretrained(model_path)
         self.model_save_path=model_save_path
+        self.epochs = epochs
         self.out_features = self.model.bert.encoder.layer[1].output.dense.out_features
         self.model.classifier = torch.nn.Linear(self.out_features, n_classes)
     
