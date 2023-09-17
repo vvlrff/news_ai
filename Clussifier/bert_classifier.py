@@ -4,10 +4,11 @@ from transformers import BertTokenizer
 
 class BertClassifier:
 
-    def __init__(self, model_path, tokenizer_path):
+    def __init__(self, model_path, tokenizer_path, load_model):
         self.tokenizer = BertTokenizer.from_pretrained(tokenizer_path)
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-        self.model = torch.load(model_path, map_location=self.device)
+        if load_model:
+            self.model = torch.load(model_path, map_location=self.device)
         self.max_len = 512
         self.out_features = self.model.bert.encoder.layer[1].output.dense.out_features
         self.model.to(self.device)
