@@ -41,11 +41,29 @@ cripto_data = pd.read_csv(r'Data\cryptonews.csv')
 categories[6] = list(cripto_data['text']) # Крипта
 
 Parser = News_parser()
-categories[4] = Parser.parse_news() # Шоубиз
+for key_num in range(10):
+    categories[key_num].extend(Parser.parse_news(key_num)) # Дополняем каждую категорию из тг
 
 with open(r"Data\Data.csv", mode="w", encoding='utf-8', newline='') as w_file:
     writer = csv.writer(w_file, delimiter=',')
 
     for key, value in categories.items():
         for el in value:
-            writer.writerow([el, key])
+            if type(el) == type('qwd') and len(el) > 1:
+                writer.writerow([el, key])
+
+data = pd.read_csv(r"Data\Data.csv", encoding='utf-8')
+data = data.sample(frac=1)
+
+total_len = data.shape[0]
+train_data = data[:total_len-30000]
+valid_data = data[total_len-30000:total_len-15000]
+test_data  = data[total_len-15000:]
+
+train_data.columns =['text', 'label']
+valid_data.columns =['text', 'label']
+test_data.columns =['text', 'label']
+
+train_data.to_csv(r"Data\train.csv", sep=',')
+valid_data.to_csv(r"Data\valid.csv", sep=',')
+test_data.to_csv(r"Data\test.csv", sep=',')

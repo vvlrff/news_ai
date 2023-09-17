@@ -1,4 +1,4 @@
-import json, csv
+import json, csv, re
 from telethon.sync import TelegramClient
 from datetime import timedelta
 from datetime import datetime
@@ -18,43 +18,47 @@ class News_parser:
 
         self.searching_period = datetime.now() - timedelta(days=30)
 
-    def parse_news(self):
-        with open(r"Data\train.csv", mode="w", encoding='utf-8', newline='') as w_file:
-            writer = csv.writer(w_file, delimiter=',')
+    def remove_links(self, text):
+        # Шаблон для поиска ссылок в тексте
+        url_pattern = re.compile(r'https?://\S+|www\.\S+')
+        # Удаление ссылок из текста
+        text_without_links = url_pattern.sub('', text)
+        return text_without_links
 
-            for key in self.channels:
-                if key == 4:
-                    with TelegramClient(self.name,
-                                        self.api_id,
-                                        self.api_hash,
-                                        device_model = "iPhone 14 Pro Max",
-                                        system_version = "14.8.1",
-                                        app_version = "8.4",
-                                        lang_code = "en",
-                                        system_lang_code = "en-US") as client:
-                        
-                        for index in range(len(self.channels)):
-                            try:
-                                for message in client.iter_messages(self.channels[key][index]):
-                                    # if message.date.timestamp() > self.last_date_ru:
-                                    if message.date.timestamp() > self.searching_period.timestamp():
+    def parse_news(self, key_num):
 
-                                        text = message.text
+        for key in self.channels:
+            if key == key_num:
+                with TelegramClient(self.name,
+                                    self.api_id,
+                                    self.api_hash,
+                                    device_model = "iPhone 14 Pro Max",
+                                    system_version = "14.8.1",
+                                    app_version = "8.4",
+                                    lang_code = "en",
+                                    system_lang_code = "en-US") as client:
+                    
+                    for index in range(len(self.channels)):
+                        try:
+                            for message in client.iter_messages(self.channels[key][index]):
+                                
+                                if message.date.timestamp() > self.searching_period.timestamp():
 
-                                        if text is None or message.text == '':
-                                            continue
+                                    text = message.text
 
-                                        self.row_info.append(text)
-                                        # writer.writerow([text, key])
-                                    
-                                    else:
-                                        break
-                            except:
-                                pass
+                                    if text is None or message.text == '':
+                                        continue
+
+                                    self.row_info.append(self.remove_links(text))
+                                
+                                else:
+                                    break
+                        except:
+                            pass
 
         return self.row_info
 
 
-if __name__ == '__main__':
-    test = News_parser()
-    all_data = test.parse_news()
+# if __name__ == '__main__':
+#     test = News_parser()
+#     all_data = test.parse_news()
