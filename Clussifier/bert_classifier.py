@@ -1,5 +1,5 @@
 import torch
-
+import torch.nn as nn
 from transformers import BertTokenizer
 
 class BertClassifier:
@@ -13,6 +13,7 @@ class BertClassifier:
         self.model.to(self.device)
     
     def predict(self, text):
+        sig = nn.Sigmoid()
         encoding = self.tokenizer.encode_plus(
             text,
             add_special_tokens=True,
@@ -39,5 +40,9 @@ class BertClassifier:
         )
         
         prediction = torch.argmax(outputs.logits, dim=1).cpu().numpy()[0]
+        probability = sig(outputs.logits).detach().numpy()[0][prediction]
+
+        if probability < 0.6:
+            prediction = 10
 
         return prediction
