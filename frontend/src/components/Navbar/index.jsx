@@ -10,7 +10,7 @@ const Navbar = () => {
                     <div className={s.left}></div>
                     <div className={s.linkContainer}>
                         <Link to="/">HomePage</Link>
-                        <Link to="/data">DataPage</Link>
+                        <Link to="/upload">UploadPage</Link>
                     </div>
                 </div>
             </nav>

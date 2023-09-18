@@ -1,4 +1,5 @@
 import { register } from "swiper/element/bundle";
+import { Link } from "react-router-dom";
 import s from "./HomePage.module.scss";
 
 const HomePage = () => {
@@ -97,7 +98,7 @@ const HomePage = () => {
                         </div>
                     </swiper-slide>
                 </swiper-container>
-                <button className={s.btn}>Начать</button>
+                <Link to='upload' className={s.btn}>Начать</Link>
             </div>
         </section>
     );
