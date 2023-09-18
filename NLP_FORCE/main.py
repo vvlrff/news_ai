@@ -97,10 +97,9 @@ class Clussifier():
             value['Количество без дубликтов'] = len(value['Сообщения без дубликтов'])
 
         print(answer)
-
+        self.crate_xlsx(answer)
         return answer
     
-
 if __name__ == '__main__':
     test = Clussifier()
     test.crate_xlsx(test.main(test.parse_xlsx(r'NLP_FORCE\test_data.xlsx')))
