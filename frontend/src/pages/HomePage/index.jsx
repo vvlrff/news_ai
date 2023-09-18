@@ -1,5 +1,5 @@
 import { register } from "swiper/element/bundle";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import video from '../../assets/video/vid.mp4'
 import s from "./HomePage.module.scss";
 
