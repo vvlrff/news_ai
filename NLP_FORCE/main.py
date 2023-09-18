@@ -1,11 +1,11 @@
-from Clussifier.bert_classifier import  BertClassifier
+from bert_classifier import BertClassifier
 import pandas as pd
 import matplotlib.pyplot as plt
 from fuzzywuzzy import fuzz
 
 class Clussifier():
     def __init__(self):
-        self.clussifier = BertClassifier(model_path='LaBSE_5.pt', tokenizer_path='cointegrated/LaBSE-en-ru')
+        self.clussifier = BertClassifier(model_path=r'NLP_FORCE\LaBSE_5.pt', tokenizer_path='cointegrated/LaBSE-en-ru')
 
         self.cat_name = {0: 'Спорт',
                         1: 'Технологии',
@@ -34,21 +34,21 @@ class Clussifier():
         df.rename(columns={'index':'Название категории'}, inplace=True )
         df = df[['Название категории', 'Общее количество', 'Количество без дубликтов']]
 
-        with pd.ExcelWriter('NaturaLP_ANSWER.xlsx', engine='xlsxwriter') as writer:
+        with pd.ExcelWriter(r'NLP_FORCE\NaturaLP_ANSWER.xlsx', engine='xlsxwriter') as writer:
             df.to_excel(writer, sheet_name='Статистика')
             sheet = writer.sheets['Статистика']
             sheet.set_column('B:D', 30)
 
             plt.pie(df['Количество без дубликтов'], labels=df['Название категории'], radius=1.0)
             plt.title('Количество сообщений без дубликатов по категориям')
-            plt.savefig('pie2.jpeg', dpi=200, bbox_inches='tight')
-            sheet.insert_image('F22', 'pie2.jpeg')
+            plt.savefig(r'NLP_FORCE\pie2.jpeg', dpi=200, bbox_inches='tight')
+            sheet.insert_image('F22', r'NLP_FORCE\pie2.jpeg')
             plt.close()
 
             plt.pie(df['Общее количество'], labels=df['Название категории'], radius=1.0)
             plt.title('Общее количество сообщений по категориям')
-            plt.savefig('pie1.jpeg', dpi=200, bbox_inches='tight')
-            sheet.insert_image('F2', 'pie1.jpeg')
+            plt.savefig(r'NLP_FORCE\pie1.jpeg', dpi=200, bbox_inches='tight')
+            sheet.insert_image('F2', r'NLP_FORCE\pie1.jpeg')
             plt.close()
 
             for key, value in dictionary.items():
@@ -103,5 +103,5 @@ class Clussifier():
 
 if __name__ == '__main__':
     test = Clussifier()
-    test.crate_xlsx(test.main(test.parse_xlsx('test_data.xlsx')))
+    test.crate_xlsx(test.main(test.parse_xlsx(r'NLP_FORCE\test_data.xlsx')))
 
