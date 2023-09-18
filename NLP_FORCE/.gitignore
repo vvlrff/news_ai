@@ -1,0 +1,6 @@
+venv/
+Clussifier/__pycache__/
+Parser/__pycache__/
+LaBSE_5.pt
+~$NaturaLP_ANSWER.xlsx
+~$test_data.xlsx
