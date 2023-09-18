@@ -1,11 +1,11 @@
-.container {
-    margin-left: 7vw;
-    display: grid;
-    justify-items: center;
-    align-items: center;
-    grid-template-columns: repeat(2, 45vw);
-    grid-template-rows: repeat(2, auto);
-}
+// .container {
+//     margin-left: 7vw;
+//     display: grid;
+//     justify-items: center;
+//     align-items: center;
+//     grid-template-columns: repeat(2, 45vw);
+//     grid-template-rows: repeat(2, auto);
+// }
 
 .left-block {
     display: flex;
@@ -17,7 +17,7 @@
     justify-content: center;
     padding-top: 8%;
     padding-left: 10%;
-    overflow:hidden;
+    overflow: hidden;
     text-decoration: none;
 }
 
@@ -31,7 +31,7 @@
     justify-content: center;
     padding-top: 8%;
     padding-left: 10%;
-    overflow:hidden;
+    overflow: hidden;
     text-decoration: none;
 }
 
@@ -45,7 +45,7 @@
     justify-content: center;
     padding-top: 8%;
     padding-left: 10%;
-    overflow:hidden;
+    overflow: hidden;
     text-decoration: none;
 }
 
@@ -71,13 +71,118 @@
     height: 80%;
 }
 
-.text {
-    color: #ffffff;
-    font-size: 250%;
-    width: 75%;
-    word-wrap: break-word;
-}
+// .text {
+//     color: #ffffff;
+//     font-size: 250%;
+//     width: 75%;
+//     word-wrap: break-word;
+// }
 
 .link {
     text-decoration: none;
+}
+
+// .hugeNews {
+//     display: flex;
+//     height: 280px;
+//     padding: 20px;
+//     background-color: red;
+// }
+
+// .hugeImageBlock {
+//     width: 50%;
+// }
+
+// .hugeContent {
+//     padding: 25px;
+// }
+
+// .title {
+// }
+
+// .preview {
+//     margin-top: 15px;
+//     width: 80%;
+// }
+
+// .list {
+//     display: flex;
+//     flex-wrap: wrap;
+//     justify-content: space-between;
+//     margin-top: 30px;
+// }
+
+// .item {
+//     height: 150px;
+//     flex-basis: 30%;
+//     background-color: blue;
+// }
+
+.homepage {
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+    margin-top: 100px;
+}
+
+.video {
+    width: fit-content;
+
+    video {
+        border-radius: 24px;
+    }
+}
+
+.content {
+    padding: 50px 50px 10px 50px;
+    width: 60%;
+    min-height: 200px;
+}
+
+.swiper {
+    height: 100%;
+}
+
+.header {
+    color: #07c7ee;
+    font-size: 40px;
+}
+
+.caption {
+    color: #07c7ee;
+    font-size: 30px;
+}
+
+.text {
+    margin-top: 30px;
+    font-size: 18px;
+    line-height: 30px;
+    letter-spacing: 1.7px;
+    color: white;
+}
+
+.textList {
+    padding-left: 30px;
+    list-style: circle;
+}
+
+.textList {
+    li {
+        margin-top: 10px;
+    }
+}
+
+.btn {
+    margin-top: 35px;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    background-color: #000;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.btn:hover {
+    box-shadow: 6px 6px 2px 1px rgba(0, 238, 255, 0.2);
 }
