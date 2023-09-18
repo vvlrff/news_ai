@@ -4,7 +4,7 @@ import FileUploadForm from '../../components/FileUploadForm'
 
 const FileUploadPage = () => {
   return (
-    <div>
+    <div className={s.container}>
         <FileUploadForm />
     </div>
   )

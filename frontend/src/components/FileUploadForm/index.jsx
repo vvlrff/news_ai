@@ -60,14 +60,20 @@ const FileUploadForm = () => {
                 onChange={handleFileChange}
                 className={s.input}
             />
-            <p className={s.p}>Выбранный файл: {fileName}</p>
+            {fileName === "" ? (
+                <p className={s.p}>
+                    Перетащите свои файлы сюда или щелкните в этой области
+                </p>
+            ) : (
+                <p className={s.p}>
+                    Выбранный файл: {fileName}
+                </p>
+            )}
+
             {isLoading ? (
                 <p className={s.p}>Идет обработка данных...</p>
             ) : (
                 <>
-                    <p className={s.p}>
-                        Перетащите свои файлы сюда или щелкните в этой области
-                    </p>
                     <button
                         disabled={!file ? "disabled" : null}
                         type="submit"

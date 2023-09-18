@@ -12,6 +12,9 @@
 }
 
 .p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 80%;
     height: 100%;
     text-align: center;
@@ -20,6 +23,9 @@
 }
 
 .input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     margin: 0;
     padding: 0;
