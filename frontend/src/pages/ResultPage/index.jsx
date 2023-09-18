@@ -1,21 +1,15 @@
-import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import s from "./ResultPage.module.scss"
 
 
 const ResultPage = () => {
-  const [serverResponse, setServerResponse] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const { state } = location;
 
-  console.log("location", location)
-
-  
-
-  const submitData = () => {
-    
-  }
+  const submitData = (categoryData) => {
+    navigate(`/result/${categoryData.category}`, { state: categoryData });
+  };
 
   return (
     <div className={s.container}>
@@ -24,16 +18,9 @@ const ResultPage = () => {
         Object.entries(state.response[0])
           .map(([key, value]) => (
             <>
-              <button onClick={submitData} key={key} >
-                Категория: {key}
-              </button>
-              {/* {Object.entries(value).map(([keyValue, valueValue]) => (
-                  <div key={keyValue}>
-                    <div className='card-spec'>
-                      {keyValue}: {valueValue}
-                    </div >
-                  </div>
-                ))} */}
+              <button onClick={() => submitData({ category: key, data: value })} key={key}>
+              Категория: {key}
+            </button>
             </>
           ))
       }
@@ -42,4 +29,5 @@ const ResultPage = () => {
 }
 
 export default ResultPage
+
 
