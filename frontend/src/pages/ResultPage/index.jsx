@@ -14,18 +14,16 @@ const ResultPage = () => {
   return (
     <div className={s.container}>
       ResultPage
-      {
-        Object.entries(state.response[0])
-          .map(([key, value]) => (
-            <>
-              <button onClick={() => submitData({ category: key, data: value })} key={key}>
-              Категория: {key}
-            </button>
-            </>
-          ))
+      {state && state.response &&
+        Object.entries(state.response).map(([key, value]) => (
+          <button onClick={() => submitData({ category: key, data: value })} key={key}>
+            Категория: {key}
+          </button>
+        ))
       }
     </div>
   )
+
 }
 
 export default ResultPage
