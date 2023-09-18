@@ -1,0 +1,46 @@
+@font-face {
+    font-display: swap;
+    font-family: "Noto Sans";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/notosansreg.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* noto-sans-600 - cyrillic_latin */
+@font-face {
+    font-display: swap;
+    font-family: "Noto Sans";
+    font-style: normal;
+    font-weight: 600;
+    src: url("../fonts/notosansbold.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+body {
+    min-height: 100vh;
+    background: #0c2956;
+    font-family: Noto Sans;
+    overflow: hidden;
+}
+
+button {
+    font-family: Noto Sans;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+section {
+    margin-top: 30px;
+    padding: 0 15%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    margin: 0;
+}

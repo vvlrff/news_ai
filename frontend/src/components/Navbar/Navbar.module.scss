@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15%;
+}
+
+.left {
+    width: 50%;
+}
+
+.linkContainer {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+.linkContainer {
+    a {
+        text-decoration: none;
+        color: white;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #07c7ee;
+    }
+}
+
+.line {
+    margin-top: 30px;
+    height: 1px;
+    background-color: white;
+}
