@@ -26,7 +26,7 @@ const ResultPage = () => {
     };
 
     const liAnim = {
-        hidden: { y: 70, opacity: 0 },
+        hidden: { y: 75, opacity: 0 },
         visible: {
             y: 0,
             opacity: 1,
