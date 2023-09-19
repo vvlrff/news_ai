@@ -39,6 +39,7 @@ const ResultPage = () => {
         >
             <div className={s.container}>
                 <h2 className={s.header}>Выберите Категорию</h2>
+
                 <motion.ul
                     className={s.list}
                     variants={container}
