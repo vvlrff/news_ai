@@ -37,7 +37,7 @@ cat_name = {
             'Шоубиз.txt': 27
             }
 
-with open(r"Data_GPT.csv", mode="w", encoding='utf-8', newline='') as w_file:
+with open(r"NLP_FORCE\Data_GPT.csv", mode="w", encoding='utf-8', newline='') as w_file:
     writer = csv.writer(w_file, delimiter='\t')
     for file_name in dir_list:
         cat = cat_name[file_name]
@@ -48,6 +48,8 @@ with open(r"Data_GPT.csv", mode="w", encoding='utf-8', newline='') as w_file:
 
 data = pd.read_csv(r"C:\Users\Chubu\OneDrive\Рабочий стол\news_ai\NLP_FORCE\Data_GPT.csv", encoding='utf-8', on_bad_lines='skip', sep='\t')
 data.columns =['text', 'label']
+
+print(data.shape)
 
 Х = data['text']
 y = data['label']
