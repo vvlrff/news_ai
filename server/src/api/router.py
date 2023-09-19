@@ -20,7 +20,7 @@ router = APIRouter (
 
 @router.post("/zagruzka")
 async def upload_file(file: UploadFile):
-    folder_path = os.getcwd() + r'\src\api\INPUT_\\'  # путь к папке, в которую нужно сохранить файл
+    folder_path = os.getcwd() + r'/src/api/INPUT_//'  # путь к папке, в которую нужно сохранить файл
     file_path = os.path.join(folder_path, file.filename)  # объединяем путь к папке и имени файла
     with open(file_path, "wb") as f:  # открываем файл на запись
         f.write(await file.read())  # записываем содержимое загруженного файла в созданный файл
@@ -31,7 +31,7 @@ async def upload_file(file: UploadFile):
 
 @router.post("/vigruzka")
 async def upload_file(file: str):
-    folder_path = os.getcwd() + r'\src\api\INPUT_\\'  # путь к папке, в которую нужно сохранить файл
+    folder_path = os.getcwd() + r'/src/api/INPUT_//'  # путь к папке, в которую нужно сохранить файл
     file_path = os.path.join(folder_path, file)  # объединяем путь к папке и имени файла
 
     return FileResponse(path=file_path,filename=file, media_type='multipart/form-data' )

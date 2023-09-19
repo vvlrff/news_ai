@@ -5,11 +5,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from fuzzywuzzy import fuzz
 
-folder_path_to_test = os.getcwd() + r'\src\api\INPUT_\test_data.xlsx'
-folder_path_to_test_answer = os.getcwd() + r'\src\api\INPUT_\answer.xlsx'
+folder_path_to_test = os.getcwd() + r'/src/api/INPUT_/test_data.xlsx'
+folder_path_to_test_answer = os.getcwd() + r'/src/api/INPUT_/answer.xlsx'
 
-folder_path_model = os.getcwd() + r'\src\api\weights\LaBSE_5.pt'  # путь к папке, в которую нужно сохранить файл
-folder_path_figure = os.getcwd() + r'\src\api\figure_nlp'
+folder_path_model = os.getcwd() + r'/src/api/weights/LaBSE_5.pt'  # путь к папке, в которую нужно сохранить файл
+folder_path_figure = os.getcwd() + r'/src/api/figure_nlp'
 class Clussifier():
     def __init__(self):
         self.clussifier = BertClassifier(model_path=folder_path_model, tokenizer_path='cointegrated/LaBSE-en-ru')
