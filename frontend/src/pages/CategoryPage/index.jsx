@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import s from "./CategoryPage.module.scss";
+import { motion } from "framer-motion";
 
 const CategoryPage = () => {
     const location = useLocation();
@@ -9,7 +10,15 @@ const CategoryPage = () => {
     console.log(state);
 
     return (
-        <section>
+        <motion.section
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 50,
+            }}
+        >
             <div className={s.container}>
                 <p className={s.title}>{state.category}</p>
                 {Object.entries(state.data).map(([key, value]) => (
@@ -20,7 +29,7 @@ const CategoryPage = () => {
                     </div>
                 ))}
             </div>
-        </section>
+        </motion.section>
     );
 };
 

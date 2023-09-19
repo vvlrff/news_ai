@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import s from "./ResultPage.module.scss";
@@ -6,25 +7,26 @@ const ResultPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { state } = location;
+    const [selectedId, setSelectedId] = useState(null);
 
     const submitData = (categoryData) => {
         navigate(`/result/${categoryData.category}`, { state: categoryData });
     };
 
-    const container = {
+    const ulAnim = {
         hidden: { opacity: 1, scale: 0 },
         visible: {
             opacity: 1,
             scale: 1,
             transition: {
-                delayChildren: 0.3,
+                delayChildren: 0.1,
                 staggerChildren: 0.2,
             },
         },
     };
 
-    const item = {
-        hidden: { y: 20, opacity: 0 },
+    const liAnim = {
+        hidden: { y: 70, opacity: 0 },
         visible: {
             y: 0,
             opacity: 1,
@@ -42,14 +44,15 @@ const ResultPage = () => {
 
                 <motion.ul
                     className={s.list}
-                    variants={container}
+                    variants={ulAnim}
                     initial="hidden"
                     animate="visible"
                 >
                     {Object.entries(state.response).map(([key, value]) => (
                         <>
                             <motion.li
-                                variants={item}
+                                layoutId={key}
+                                variants={liAnim}
                                 className={s.card}
                                 onClick={() =>
                                     submitData({
