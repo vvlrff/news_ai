@@ -6,18 +6,37 @@ from fuzzywuzzy import fuzz
 class Clussifier():
     def __init__(self):
         self.clussifier = BertClassifier(model_path=r'NLP_FORCE\LaBSE_5.pt', tokenizer_path='cointegrated/LaBSE-en-ru')
-
-        self.cat_name = {0: 'Спорт',
-                        1: 'Технологии',
-                        2: 'Финансы',
-                        3: 'Политика',
-                        4: 'Шоубизнес',
-                        5: 'Мода',
-                        6: 'Криптовалюта',
+        
+        self.cat_name = {
+                        0: 'Блоги',
+                        1: 'Новости и СМИt',
+                        2: 'Развлечения и юмор',
+                        3: 'Технологии',
+                        4: 'Экономика',
+                        5: 'Бизнес и стартапы',
+                        6: 'Криптовалюты',
                         7: 'Путешествия',
-                        8: 'Образование',
-                        9: 'Развлечения',
-                        10: 'Общее'}
+                        8: 'Маркетинг, PR, реклама',
+                        9: 'Психология',
+                        10: 'Дизайн',
+                        11: 'Политика',
+                        12: 'Искусство',
+                        13: 'Право',
+                        14: 'Образование и познавательное',
+                        15: 'Спорт',
+                        16: 'Мода и красота',
+                        17: 'Здоровье и медицина',
+                        18: 'Картинки и фото',
+                        19: 'Софт и приложения',
+                        20: 'Видео и фильмы',
+                        21: 'Музыка',
+                        22: 'Игры',
+                        23: 'Еда и кулинария',
+                        24: 'Цитаты',
+                        25: 'Рукоделие',
+                        26: 'Финансы',
+                        27: 'Шоубиз'
+                        }
         
         self.collector = None
         
@@ -96,11 +115,11 @@ class Clussifier():
             value['Сообщения без дубликтов'] = self.drop_dublikates(value['Сообщения'], param=80)
             value['Количество без дубликтов'] = len(value['Сообщения без дубликтов'])
 
-        print(answer)
+        # print(answer)
         self.crate_xlsx(answer)
         return answer
     
 if __name__ == '__main__':
     test = Clussifier()
-    test.crate_xlsx(test.main(test.parse_xlsx(r'NLP_FORCE\test_data.xlsx')))
+    test.main(test.parse_xlsx(r'NLP_FORCE\test_data.xlsx'))
 
