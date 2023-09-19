@@ -5,7 +5,8 @@ from fuzzywuzzy import fuzz
 
 class Clussifier():
     def __init__(self):
-        self.clussifier = BertClassifier(model_path=r'NLP_FORCE\RuBERT_NaturaLP.pt', tokenizer_path='cointegrated/rubert-tiny')
+        self.clussifier = BertClassifier(model_path=r'NLP_FORCE\RuBERT_NaturaLP_2.pt', tokenizer_path='cointegrated/rubert-tiny')
+        # self.clussifier = BertClassifier(model_path=r'NLP_FORCE\LaBSE_NaturaLP.pt', tokenizer_path='cointegrated/LaBSE-en-ru')
         
         self.cat_name = {
                         0: 'Блоги',
@@ -52,6 +53,11 @@ class Clussifier():
         for news_article in list_data:
             news_article.insert(0, self.collector[news_article[0]])
 
+        idshki = []
+        for el in value['Сообщения без дубликтов']:
+            idshki.append(self.collector[el])
+        new_df = pd.DataFrame(list(zip(idshki, value['Сообщения без дубликтов'])), columns =['ID канала', 'Сообщения без дубликтов'])
+
         df = pd.DataFrame(list_data)
         df.columns = ['id', 'Новостное сообщение', 'Категория']
 
@@ -65,23 +71,35 @@ class Clussifier():
         df = pd.DataFrame(dictionary)
         df = df.transpose().reset_index()
         df.rename(columns={'index':'Название категории'}, inplace=True)
-        df = df[['Название категории', 'Общее количество', 'Количество без дубликтов']]
+        df = df[['Название категории', 'Общее количество', 'Количество без дубликтов', 'Количество дубликтов']]
 
         with pd.ExcelWriter(r'NLP_FORCE\NaturaLP_ANSWER.xlsx', engine='xlsxwriter') as writer:
             df.to_excel(writer, sheet_name='Статистика')
             sheet = writer.sheets['Статистика']
-            sheet.set_column('B:D', 30)
+            sheet.set_column('B:E', 30)
 
-            plt.pie(df['Количество без дубликтов'], labels=df['Название категории'], radius=2.0)
-            plt.title('Количество сообщений без дубликатов по категориям')
-            plt.savefig(r'NLP_FORCE\pie2.jpeg', dpi=200, bbox_inches='tight')
-            sheet.insert_image('F52', r'NLP_FORCE\pie2.jpeg')
-            plt.close()
-
-            plt.pie(df['Общее количество'], labels=df['Название категории'], radius=2.0)
+            df_for_plot1 = df[df['Общее количество'] > 0] 
+            
+            plt.pie(df_for_plot1['Общее количество'], labels=df_for_plot1['Название категории'], radius=1.0)
             plt.title('Общее количество сообщений по категориям')
             plt.savefig(r'NLP_FORCE\pie1.jpeg', dpi=200, bbox_inches='tight')
-            sheet.insert_image('F2', r'NLP_FORCE\pie1.jpeg')
+            sheet.insert_image('H2', r'NLP_FORCE\pie1.jpeg')
+            plt.close()
+
+            df_for_plot2 = df[df['Количество без дубликтов'] > 0] 
+
+            plt.pie(df_for_plot2['Количество без дубликтов'], labels=df_for_plot2['Название категории'], radius=1.0)
+            plt.title('Количество сообщений без дубликатов по категориям')
+            plt.savefig(r'NLP_FORCE\pie2.jpeg', dpi=200, bbox_inches='tight')
+            sheet.insert_image('H25', r'NLP_FORCE\pie2.jpeg')
+            plt.close()
+
+            df_for_plot3 = df[df['Количество дубликтов'] > 0] 
+
+            plt.pie(df_for_plot3['Количество дубликтов'], labels=df_for_plot3['Название категории'], radius=1.0)
+            plt.title('Количество дубликатов по категориям')
+            plt.savefig(r'NLP_FORCE\pie3.jpeg', dpi=200, bbox_inches='tight')
+            sheet.insert_image('H48', r'NLP_FORCE\pie3.jpeg')
             plt.close()
 
             for key, value in dictionary.items():
@@ -99,11 +117,12 @@ class Clussifier():
         list_from_set = list(cleaned_target)
         for i in range(len(list_from_set)-1):
             for j in range(i+1, len(list_from_set)):
-                if fuzz.WRatio(list_from_set[i], list_from_set[j]) > param:
+                if fuzz.token_set_ratio(list_from_set[i], list_from_set[j]) > param:
                     if len(list_from_set[i]) >= len(list_from_set[j]):
                         cleaned_target.discard(list_from_set[j])
                     else:
                         cleaned_target.discard(list_from_set[i])
+                    print(list_from_set[j], list_from_set[i])
 
         return list(cleaned_target)
     
@@ -151,6 +170,7 @@ class Clussifier():
         for value in answer.values():
             value['Сообщения без дубликтов'] = self.drop_dublikates(value['Сообщения'], param=80)
             value['Количество без дубликтов'] = len(value['Сообщения без дубликтов'])
+            value['Количество дубликтов'] = value['Общее количество'] - value['Количество без дубликтов']
 
         # print(answer)
         self.crate_xlsx(answer)
