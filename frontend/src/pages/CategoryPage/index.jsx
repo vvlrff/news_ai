@@ -1,24 +1,27 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom'
+import React from "react";
+import { useLocation } from "react-router-dom";
+import s from "./CategoryPage.module.scss";
 
 const CategoryPage = () => {
     const location = useLocation();
     const { state } = location;
 
-    console.log(state)
+    console.log(state);
 
     return (
-        <div>
-            {state.category}
-            {Object.entries(state.data).map(([key, value]) => (
-                <div key={key}>
-                    <div className='card-spec'>
-                        {key}: {value}
-                    </div >
-                </div>
-            ))}
-        </div>
-    )
-}
+        <section>
+            <div className={s.container}>
+                <p className={s.title}>{state.category}</p>
+                {Object.entries(state.data).map(([key, value]) => (
+                    <div key={key} className={s.card}>
+                        <div className={s.cardInfo}>
+                            {key}: {value}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+};
 
-export default CategoryPage
+export default CategoryPage;

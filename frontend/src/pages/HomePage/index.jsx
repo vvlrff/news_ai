@@ -1,18 +1,24 @@
 import { register } from "swiper/element/bundle";
 import { useNavigate } from "react-router-dom";
-import video from '../../assets/video/vid.mp4'
+import video from "../../assets/video/vid.mp4";
 import s from "./HomePage.module.scss";
+import { motion } from "framer-motion";
 
 const HomePage = () => {
     register();
     const navigate = useNavigate();
 
     const onRedirect = () => {
-      navigate('/upload')
-    }
+        navigate("/upload");
+    };
 
     return (
-        <section className={s.homepage}>
+        <motion.section
+            className={s.homepage}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        >
             <div className={s.video}>
                 <video autoPlay muted loop>
                     <source src={video} />
@@ -104,9 +110,11 @@ const HomePage = () => {
                         </div>
                     </swiper-slide>
                 </swiper-container>
-                <button onClick={onRedirect} className={s.btn}>Начать</button>
+                <button onClick={onRedirect} className={s.btn}>
+                    Начать
+                </button>
             </div>
-        </section>
+        </motion.section>
     );
 };
 

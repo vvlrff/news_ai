@@ -1,0 +1,15 @@
+@use "../../assets/styles/global.scss";
+
+.container {
+    color: white;
+}
+
+.title {
+    @include global.caption;
+    margin-bottom: 40px;
+}
+
+.cardInfo {
+    margin-top: 10px;
+    padding-left: 100px;
+}
