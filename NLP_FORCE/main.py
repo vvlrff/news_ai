@@ -5,11 +5,11 @@ from fuzzywuzzy import fuzz
 
 class Clussifier():
     def __init__(self):
-        self.clussifier = BertClassifier(model_path=r'NLP_FORCE\LaBSE_5.pt', tokenizer_path='cointegrated/LaBSE-en-ru')
+        self.clussifier = BertClassifier(model_path=r'NLP_FORCE\RuBERT_NaturaLP.pt', tokenizer_path='cointegrated/rubert-tiny')
         
         self.cat_name = {
                         0: 'Блоги',
-                        1: 'Новости и СМИt',
+                        1: 'Новости и СМИ',
                         2: 'Развлечения и юмор',
                         3: 'Технологии',
                         4: 'Экономика',
@@ -35,7 +35,8 @@ class Clussifier():
                         24: 'Цитаты',
                         25: 'Рукоделие',
                         26: 'Финансы',
-                        27: 'Шоубиз'
+                        27: 'Шоубиз',
+                        29: 'Другое'
                         }
         
         self.collector = None
@@ -47,10 +48,23 @@ class Clussifier():
         self.collector = dict(zip(texts, indexes))
         return texts
     
+    def crate_xlsx_for_cheking(self, list_data):
+        for news_article in list_data:
+            news_article.insert(0, self.collector[news_article[0]])
+
+        df = pd.DataFrame(list_data)
+        df.columns = ['id', 'Новостное сообщение', 'Категория']
+
+        with pd.ExcelWriter(r'NLP_FORCE\NaturaLP_ANSWER_FOR_CHECKING.xlsx', engine='xlsxwriter') as writer:
+            df.to_excel(writer, sheet_name='NaturaLP')
+            sheet = writer.sheets['NaturaLP']
+            sheet.set_column('C:C', 150)
+            sheet.set_column('D:D', 25)
+    
     def crate_xlsx(self, dictionary):
         df = pd.DataFrame(dictionary)
         df = df.transpose().reset_index()
-        df.rename(columns={'index':'Название категории'}, inplace=True )
+        df.rename(columns={'index':'Название категории'}, inplace=True)
         df = df[['Название категории', 'Общее количество', 'Количество без дубликтов']]
 
         with pd.ExcelWriter(r'NLP_FORCE\NaturaLP_ANSWER.xlsx', engine='xlsxwriter') as writer:
@@ -58,13 +72,13 @@ class Clussifier():
             sheet = writer.sheets['Статистика']
             sheet.set_column('B:D', 30)
 
-            plt.pie(df['Количество без дубликтов'], labels=df['Название категории'], radius=1.0)
+            plt.pie(df['Количество без дубликтов'], labels=df['Название категории'], radius=2.0)
             plt.title('Количество сообщений без дубликатов по категориям')
             plt.savefig(r'NLP_FORCE\pie2.jpeg', dpi=200, bbox_inches='tight')
-            sheet.insert_image('F22', r'NLP_FORCE\pie2.jpeg')
+            sheet.insert_image('F52', r'NLP_FORCE\pie2.jpeg')
             plt.close()
 
-            plt.pie(df['Общее количество'], labels=df['Название категории'], radius=1.0)
+            plt.pie(df['Общее количество'], labels=df['Название категории'], radius=2.0)
             plt.title('Общее количество сообщений по категориям')
             plt.savefig(r'NLP_FORCE\pie1.jpeg', dpi=200, bbox_inches='tight')
             sheet.insert_image('F2', r'NLP_FORCE\pie1.jpeg')
@@ -77,39 +91,62 @@ class Clussifier():
                 new_df = pd.DataFrame(list(zip(idshki, value['Сообщения без дубликтов'])), columns =['ID канала', 'Сообщения без дубликтов'])
                 new_df.to_excel(writer, sheet_name=key)
                 sheet = writer.sheets[key]
-                sheet.set_column('D:E', 300)
+                sheet.set_column('B:B', 15)
+                sheet.set_column('C:C', 150)
     
     def drop_dublikates(self, target, param):
         cleaned_target = set(target)
-
-        for i in range(len(target)-1):
-            for j in range(i+1, len(target)):
-                if fuzz.WRatio(target[i], target[j]) > param:
-                    if len(target[i]) >= len(target[j]):
-                        cleaned_target.discard(target[j])
+        list_from_set = list(cleaned_target)
+        for i in range(len(list_from_set)-1):
+            for j in range(i+1, len(list_from_set)):
+                if fuzz.WRatio(list_from_set[i], list_from_set[j]) > param:
+                    if len(list_from_set[i]) >= len(list_from_set[j]):
+                        cleaned_target.discard(list_from_set[j])
                     else:
-                        cleaned_target.discard(target[i])
+                        cleaned_target.discard(list_from_set[i])
 
         return list(cleaned_target)
     
 
     def main(self, target):
-        answer = {'Спорт': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                  'Технологии': {'Общее количество': 0, 'Количество без дубликтов': 0,'Сообщения': []},
-                  'Финансы': {'Общее количество': 0, 'Количество без дубликтов': 0,'Сообщения': []},
-                  'Политика': {'Общее количество': 0, 'Количество без дубликтов': 0,'Сообщения': []},
-                  'Шоубизнес': {'Общее количество': 0, 'Количество без дубликтов': 0,'Сообщения': []},
-                  'Мода': {'Общее количество': 0, 'Количество без дубликтов': 0,'Сообщения': []},
-                  'Криптовалюта': {'Общее количество': 0, 'Количество без дубликтов': 0,'Сообщения': []},
-                  'Путешествия': {'Общее количество': 0, 'Количество без дубликтов': 0,'Сообщения': []},
-                  'Образование': {'Общее количество': 0, 'Количество без дубликтов': 0,'Сообщения': []},
-                  'Развлечения': {'Общее количество': 0, 'Количество без дубликтов': 0,'Сообщения': []},
-                  'Общее': {'Общее количество': 0, 'Количество без дубликтов': 0,'Сообщения': []}}
+        answer_for_cheking = []
+        answer = {
+                'Блоги': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Новости и СМИ': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Развлечения и юмор': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Технологии': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Экономика': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Бизнес и стартапы': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Криптовалюты': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Путешествия': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Маркетинг, PR, реклама': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Психология': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Дизайн': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Политика': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Искусство': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Право': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Образование и познавательное': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Спорт': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Мода и красота': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Здоровье и медицина': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Картинки и фото': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Софт и приложения': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Видео и фильмы': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Музыка': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Игры': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Еда и кулинария': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Цитаты': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Рукоделие': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Финансы': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Шоубиз': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
+                'Другое': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []}
+                }
 
         for element in target:
             el_cat = self.cat_name[self.clussifier.predict(element)]
             answer[el_cat]['Общее количество'] += 1
             answer[el_cat]['Сообщения'].append(element)
+            answer_for_cheking.append([element, el_cat])
 
         for value in answer.values():
             value['Сообщения без дубликтов'] = self.drop_dublikates(value['Сообщения'], param=80)
@@ -117,6 +154,7 @@ class Clussifier():
 
         # print(answer)
         self.crate_xlsx(answer)
+        self.crate_xlsx_for_cheking(answer_for_cheking)
         return answer
     
 if __name__ == '__main__':
