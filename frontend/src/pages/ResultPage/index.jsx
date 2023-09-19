@@ -15,7 +15,7 @@ const ResultPage = () => {
             <div className={s.container}>
                 <h2 className={s.header}>Выберите Категорию</h2>
                 <ul className={s.list}>
-                    {Object.entries(state.response[0]).map(([key, value]) => (
+                    {Object.entries(state.response).map(([key, value]) => (
                         <>
                             <li
                                 className={s.card}
