@@ -42,7 +42,7 @@ class BertClassifier:
         prediction = torch.argmax(outputs.logits, dim=1).cpu().numpy()[0]
         probability = sig(outputs.logits).detach().numpy()[0][prediction]
 
-        if probability < 0.6:
-            prediction = 10
-
+        if probability < 0.5:
+            prediction = 29
+        # print(prediction)
         return prediction

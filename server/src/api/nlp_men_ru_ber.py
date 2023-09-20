@@ -2,10 +2,20 @@ from bert_classifier import BertClassifier
 import pandas as pd
 import matplotlib.pyplot as plt
 from fuzzywuzzy import fuzz
+import os
+
+
+
+folder_path_to_test = os.getcwd() + r'\src\api\INPUT_\test_data.xlsx'
+folder_path_to_test_answer = os.getcwd() + r'\src\api\INPUT_\answer.xlsx'
+folder_path_to_test_answer_CHECK = os.getcwd() + r'\src\api\INPUT_\NaturaLP_ANSWER_FOR_CHECKING.xlsx'
+
+folder_path_model = os.getcwd() + r'\src\api\weights\RuBERT_NaturaLP.pt'  # путь к папке, в которую нужно сохранить файл
+folder_path_figure = os.getcwd() + r'\src\api\figure_nlp'
 
 class Clussifier():
     def __init__(self):
-        self.clussifier = BertClassifier(model_path=r'NLP_FORCE\RuBERT_NaturaLP_2.pt', tokenizer_path='cointegrated/rubert-tiny')
+        self.clussifier = BertClassifier(model_path=folder_path_model, tokenizer_path='cointegrated/rubert-tiny')
         # self.clussifier = BertClassifier(model_path=r'NLP_FORCE\LaBSE_NaturaLP.pt', tokenizer_path='cointegrated/LaBSE-en-ru')
         
         self.cat_name = {
@@ -54,14 +64,11 @@ class Clussifier():
             news_article.insert(0, self.collector[news_article[0]])
 
         idshki = []
-        for el in value['Сообщения без дубликтов']:
-            idshki.append(self.collector[el])
-        new_df = pd.DataFrame(list(zip(idshki, value['Сообщения без дубликтов'])), columns =['ID канала', 'Сообщения без дубликтов'])
 
         df = pd.DataFrame(list_data)
         df.columns = ['id', 'Новостное сообщение', 'Категория']
 
-        with pd.ExcelWriter(r'NLP_FORCE\NaturaLP_ANSWER_FOR_CHECKING.xlsx', engine='xlsxwriter') as writer:
+        with pd.ExcelWriter(folder_path_to_test_answer_CHECK, engine='xlsxwriter') as writer:
             df.to_excel(writer, sheet_name='NaturaLP')
             sheet = writer.sheets['NaturaLP']
             sheet.set_column('C:C', 150)
@@ -73,7 +80,7 @@ class Clussifier():
         df.rename(columns={'index':'Название категории'}, inplace=True)
         df = df[['Название категории', 'Общее количество', 'Количество без дубликтов', 'Количество дубликтов']]
 
-        with pd.ExcelWriter(r'NLP_FORCE\NaturaLP_ANSWER.xlsx', engine='xlsxwriter') as writer:
+        with pd.ExcelWriter(folder_path_to_test_answer, engine='xlsxwriter') as writer:
             df.to_excel(writer, sheet_name='Статистика')
             sheet = writer.sheets['Статистика']
             sheet.set_column('B:E', 30)
@@ -82,24 +89,24 @@ class Clussifier():
             
             plt.pie(df_for_plot1['Общее количество'], labels=df_for_plot1['Название категории'], radius=1.0)
             plt.title('Общее количество сообщений по категориям')
-            plt.savefig(r'NLP_FORCE\pie1.jpeg', dpi=200, bbox_inches='tight')
-            sheet.insert_image('H2', r'NLP_FORCE\pie1.jpeg')
+            plt.savefig(folder_path_figure+'\pie1.jpeg', dpi=200, bbox_inches='tight')
+            sheet.insert_image('H2', folder_path_figure+'\pie1.jpeg')
             plt.close()
 
             df_for_plot2 = df[df['Количество без дубликтов'] > 0] 
 
             plt.pie(df_for_plot2['Количество без дубликтов'], labels=df_for_plot2['Название категории'], radius=1.0)
             plt.title('Количество сообщений без дубликатов по категориям')
-            plt.savefig(r'NLP_FORCE\pie2.jpeg', dpi=200, bbox_inches='tight')
-            sheet.insert_image('H25', r'NLP_FORCE\pie2.jpeg')
+            plt.savefig(folder_path_figure+'\pie2.jpeg', dpi=200, bbox_inches='tight')
+            sheet.insert_image('H25', folder_path_figure+'\pie2.jpeg')
             plt.close()
 
             df_for_plot3 = df[df['Количество дубликтов'] > 0] 
 
             plt.pie(df_for_plot3['Количество дубликтов'], labels=df_for_plot3['Название категории'], radius=1.0)
             plt.title('Количество дубликатов по категориям')
-            plt.savefig(r'NLP_FORCE\pie3.jpeg', dpi=200, bbox_inches='tight')
-            sheet.insert_image('H48', r'NLP_FORCE\pie3.jpeg')
+            plt.savefig(folder_path_figure+'\pie3.jpeg', dpi=200, bbox_inches='tight')
+            sheet.insert_image('H48', folder_path_figure+'\pie3.jpeg')
             plt.close()
 
             for key, value in dictionary.items():
@@ -179,5 +186,5 @@ class Clussifier():
     
 if __name__ == '__main__':
     test = Clussifier()
-    test.main(test.parse_xlsx(r'NLP_FORCE\test_data.xlsx'))
+    test.main(test.parse_xlsx(folder_path_to_test))
 
