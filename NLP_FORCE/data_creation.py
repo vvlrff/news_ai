@@ -2,7 +2,7 @@ import os, csv
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-path = r"C:\Users\Chubu\OneDrive\Рабочий стол\news_ai\NLP_FORCE\ForTrain"
+path = r"C:\Users\Chubu\OneDrive\Рабочий стол\news_ai\NLP_FORCE\ForTrain3"
 dir_list = os.listdir(path)
 print(len(dir_list))
 
@@ -37,16 +37,16 @@ cat_name = {
             'Шоубиз.txt': 27
             }
 
-with open(r"NLP_FORCE\Data_GPT.csv", mode="w", encoding='utf-8', newline='') as w_file:
+with open(r"NLP_FORCE\ForTrain3\Data_GPT.csv", mode="w", encoding='utf-8', newline='') as w_file:
     writer = csv.writer(w_file, delimiter='\t')
     for file_name in dir_list:
         cat = cat_name[file_name]
-        with open(f'NLP_FORCE\ForTrain\{file_name}', encoding='utf-8') as current_file:
+        with open(f'NLP_FORCE\ForTrain3\{file_name}', encoding='utf-8') as current_file:
             data = current_file.readlines()
             for news_article in data:
                 writer.writerow([news_article, cat])
 
-data = pd.read_csv(r"C:\Users\Chubu\OneDrive\Рабочий стол\news_ai\NLP_FORCE\Data_GPT.csv", encoding='utf-8', on_bad_lines='skip', sep='\t')
+data = pd.read_csv(r"C:\Users\Chubu\OneDrive\Рабочий стол\news_ai\NLP_FORCE\ForTrain3\Data_GPT.csv", encoding='utf-8', on_bad_lines='skip', sep='\t')
 data.columns =['text', 'label']
 
 print(data.shape)
