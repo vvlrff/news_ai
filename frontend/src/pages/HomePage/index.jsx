@@ -12,6 +12,10 @@ const HomePage = () => {
         navigate("/upload");
     };
 
+    const redirectToTest = () => {
+        navigate("/test")
+    };
+
     return (
         <motion.section
             className={s.homepage}
@@ -112,6 +116,9 @@ const HomePage = () => {
                 </swiper-container>
                 <button onClick={onRedirect} className={s.btn}>
                     Начать
+                </button>
+                <button onClick={redirectToTest} className={s.btn}>
+                    Посмотреть пример
                 </button>
             </div>
         </motion.section>

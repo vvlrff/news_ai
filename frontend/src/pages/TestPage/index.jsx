@@ -1,20 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import s from "./ResultPage.module.scss";
-import api from "../../api";
+import s from "./TestPage.module.scss";
+import api from "../../api"
+import axios from "axios";
+
 import PieGraph from "../../components/PieGraph";
 
-const ResultPage = () => {
+const TestPage = () => {
     const navigate = useNavigate();
-    const location = useLocation();
-    const { state } = location;
+    const [data, setData] = useState({})
     const [loading, setLoading] = useState(false);
 
-    console.log(state.response);
+    useEffect(() => {
+        api.post('/api/for_chek')
+            .then(res => setData(res.data))
+            .catch(err => console.log(err))
+    }, [])
 
     const submitData = (categoryData) => {
-        navigate(`/result/${categoryData.category}`, { state: categoryData });
+        navigate(`/test/${categoryData.category}`, { state: categoryData });
     };
 
     const ulAnim = {
@@ -119,7 +124,7 @@ const ResultPage = () => {
                     </div>
                 </div>
 
-                <PieGraph data={state.response}></PieGraph>
+                <PieGraph data={data}></PieGraph>
 
                 <motion.ul
                     className={s.list}
@@ -127,7 +132,7 @@ const ResultPage = () => {
                     initial="hidden"
                     animate="visible"
                 >
-                    {Object.entries(state.response).map(([key, value]) => (
+                    {Object.entries(data).map(([key, value]) => (
                         <>
                             <motion.li
                                 layoutId={key}
@@ -151,4 +156,4 @@ const ResultPage = () => {
     );
 };
 
-export default ResultPage;
+export default TestPage;

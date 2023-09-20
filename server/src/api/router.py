@@ -8,8 +8,6 @@ import pickle
 
 from fastapi import APIRouter, Body, Depends, File, Query, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import and_, distinct, insert, select,  func
 
 from .nlp_men_ru_ber import Clussifier
 test = Clussifier()
