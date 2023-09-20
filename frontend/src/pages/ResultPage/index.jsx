@@ -10,9 +10,7 @@ const ResultPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { state } = location;
-    const [selectedId, setSelectedId] = useState(null);
     const [loading, setLoading] = useState(false);
-
 
     console.log(state.response);
 
@@ -39,16 +37,12 @@ const ResultPage = () => {
             opacity: 1,
         },
     };
-    const getExcel_sema= () => {
+    const getExcel_sema = () => {
         setLoading(true);
         axios
-            .post(
-                `http://localhost:8000/api/vigruzka`,
-                null,
-                {
-                    responseType: "blob", // Указываем, что ожидаем blob (бинарные данные) в ответе
-                }
-            )
+            .post(`http://localhost:8000/api/vigruzka`, null, {
+                responseType: "blob", // Указываем, что ожидаем blob (бинарные данные) в ответе
+            })
             .then((res) => {
                 if (res.status === 200) {
                     // Создаем ссылку на blob и имитируем клик на ней для скачивания файла
@@ -57,31 +51,25 @@ const ResultPage = () => {
                     );
                     const link = document.createElement("a");
                     link.href = url;
-                    link.setAttribute("download", 'answer' + ".xlsx"); // Установите желаемое имя файла
+                    link.setAttribute("download", "answer" + ".xlsx"); // Установите желаемое имя файла
                     document.body.appendChild(link);
                     link.click();
                     link.remove();
                     window.URL.revokeObjectURL(url); // Очистите ресурсы
                     setLoading(false);
-
                 }
             })
             .catch((err) => {
                 alert(err);
                 setLoading(false);
-
             });
     };
-    const getExcel_for_chek= () => {
+    const getExcel_for_chek = () => {
         setLoading(true);
         axios
-            .post(
-                `http://localhost:8000/api/vigruzka_for_chek`,
-                null,
-                {
-                    responseType: "blob", // Указываем, что ожидаем blob (бинарные данные) в ответе
-                }
-            )
+            .post(`http://localhost:8000/api/vigruzka_for_chek`, null, {
+                responseType: "blob", // Указываем, что ожидаем blob (бинарные данные) в ответе
+            })
             .then((res) => {
                 if (res.status === 200) {
                     // Создаем ссылку на blob и имитируем клик на ней для скачивания файла
@@ -90,19 +78,20 @@ const ResultPage = () => {
                     );
                     const link = document.createElement("a");
                     link.href = url;
-                    link.setAttribute("download", 'NaturaLP_ANSWER_FOR_CHECKING' + ".xlsx"); // Установите желаемое имя файла
+                    link.setAttribute(
+                        "download",
+                        "NaturaLP_ANSWER_FOR_CHECKING" + ".xlsx"
+                    ); // Установите желаемое имя файла
                     document.body.appendChild(link);
                     link.click();
                     link.remove();
                     window.URL.revokeObjectURL(url); // Очистите ресурсы
                     setLoading(false);
-
                 }
             })
             .catch((err) => {
                 alert(err);
                 setLoading(false);
-
             });
     };
 
@@ -113,23 +102,23 @@ const ResultPage = () => {
             exit={{ opacity: 0 }}
         >
             <div className={s.container}>
-                <h2 className={s.header}>Выберите Категорию
-                    <button 
-                    className="button-exel-Sema"
-                    onClick={() =>
-                        getExcel_sema()
-                    }>
-                        button-exel-Sema
-                    </button>
-                    <button 
-                    className="button-exel-Sema"
-                    onClick={() =>
-                        getExcel_for_chek()
-                    }>
-                        button-exel-For-Chek
-                    </button>
-                </h2>
-
+                <div className={s.upperContainer}>
+                    <h2 className={s.header}>Выберите Категорию</h2>
+                    <div className={s.buttonContainer}>
+                        <button
+                            className={s.downloadBtn}
+                            onClick={() => getExcel_sema()}
+                        >
+                            Скачать xslx для анализа
+                        </button>
+                        <button
+                            className={s.downloadBtn}
+                            onClick={() => getExcel_for_chek()}
+                        >
+                            Скачать xslx для проверки
+                        </button>
+                    </div>
+                </div>
 
                 <PieGraph data={state.response}></PieGraph>
 

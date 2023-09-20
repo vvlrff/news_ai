@@ -120,16 +120,37 @@
 }
 
 .btn {
-    margin-top: 35px;
+    margin-top: 40px;
     padding: 16px 32px;
+    background: #f8ef00;
+    color: black;
+    top: 100px;
     border: none;
-    border-radius: 8px;
-    color: white;
-    background-color: #000;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    outline: none;
     cursor: pointer;
-    transition: box-shadow 0.3s ease;
+    transition: background-color 0.4s ease, box-shadow 0.3s ease,
+        color 0.4s ease;
+    -webkit-transition: background-color 0.4s ease, box-shadow 0.3s ease,
+        color 0.4s ease;
+    -moz-transition: background-color 0.4s ease, box-shadow 0.3s ease,
+        color 0.4s ease;
+    -ms-transition: background-color 0.4s ease, box-shadow 0.3s ease,
+        color 0.4s ease;
+    -o-transition: background-color 0.4s ease, box-shadow 0.3s ease,
+        color 0.4s ease;
 }
 
 .btn:hover {
-    box-shadow: 6px 6px 2px 1px rgba(0, 238, 255, 0.2);
+    background-color: #f75049;
+    box-shadow: 5px 5px 5px #5c3a3a;
+}
+
+.btn:active {
+    color: #5ef6ff;
+    background-color: rgba(94, 246, 255, 0.3);
+    box-shadow: 5px 5px 5px rgba(94, 246, 255, 0.1);
 }
