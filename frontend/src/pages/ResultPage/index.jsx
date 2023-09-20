@@ -3,13 +3,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import s from "./ResultPage.module.scss";
 
+import PieGraph from "../../components/PieGraph";
+
 const ResultPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { state } = location;
     const [selectedId, setSelectedId] = useState(null);
 
-    console.log(state.response)
+    console.log(state.response);
 
     const submitData = (categoryData) => {
         navigate(`/result/${categoryData.category}`, { state: categoryData });
@@ -43,6 +45,8 @@ const ResultPage = () => {
         >
             <div className={s.container}>
                 <h2 className={s.header}>Выберите Категорию</h2>
+
+                <PieGraph data={state.response}></PieGraph>
 
                 <motion.ul
                     className={s.list}
