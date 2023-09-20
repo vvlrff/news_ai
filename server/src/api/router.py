@@ -4,6 +4,7 @@ import os
 import random as rnd
 import re
 import sys
+import pickle
 
 from fastapi import APIRouter, Body, Depends, File, Query, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
@@ -28,6 +29,8 @@ async def upload_file(file: UploadFile):
 
     # data = test.crate_xlsx(test.main(test.parse_xlsx(file_path)))
     data_out = test.main(test.parse_xlsx(file_path))
+    pickle.dump(data_out, file = open("data_out.pickle", "wb"))
+
     return JSONResponse(content=data_out)
 
 @router.post("/vigruzka")
@@ -44,3 +47,11 @@ async def upload_file():
     return FileResponse(path=folder_path,filename='NaturaLP_ANSWER_FOR_CHECKING.xlsx', media_type='multipart/form-data' )
 
 
+@router.post("/for_chek")
+async def upload_file():
+    company1_reloaded = pickle.load(open("data_out.pickle", "rb"))
+    return JSONResponse(
+        content=company1_reloaded
+    )
+
+# company1_reloaded = pickle.load(open("data_out.pickle", "rb"))
