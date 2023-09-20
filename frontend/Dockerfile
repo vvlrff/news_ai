@@ -1,13 +1,20 @@
+# Используем образ Node.js
 FROM node:14
 
-WORKDIR /user/src/app
+# Устанавливаем рабочую директорию
+WORKDIR /app
 
-COPY ./package.json ./
+# Копируем зависимости для фронтенда
+COPY frontend/package.json frontend/package-lock.json /app/
 
-RUN npm install 
+# Устанавливаем зависимости
+RUN npm install
 
-COPY . .
+# Копируем код фронтенда
+COPY frontend/ /app/
 
+# Указываем, что приложение должно быть запущено на порту 3000
 EXPOSE 3000
 
+# Запускаем npm start при запуске контейнера
 CMD ["npm", "start"]
