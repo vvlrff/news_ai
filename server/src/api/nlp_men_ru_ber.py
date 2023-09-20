@@ -78,32 +78,32 @@ class Clussifier():
         df = pd.DataFrame(dictionary)
         df = df.transpose().reset_index()
         df.rename(columns={'index':'Название категории'}, inplace=True)
-        df = df[['Название категории', 'Общее количество', 'Количество без дубликтов', 'Количество дубликтов']]
+        df = df[['Название категории', 'counts', 'counts_not_dubl', 'count_dublic']]
 
         with pd.ExcelWriter(folder_path_to_test_answer, engine='xlsxwriter') as writer:
             df.to_excel(writer, sheet_name='Статистика')
             sheet = writer.sheets['Статистика']
             sheet.set_column('B:E', 30)
 
-            df_for_plot1 = df[df['Общее количество'] > 0] 
+            df_for_plot1 = df[df['counts'] > 0] 
             
-            plt.pie(df_for_plot1['Общее количество'], labels=df_for_plot1['Название категории'], radius=1.0)
-            plt.title('Общее количество сообщений по категориям')
+            plt.pie(df_for_plot1['counts'], labels=df_for_plot1['Название категории'], radius=1.0)
+            plt.title('counts сообщений по категориям')
             plt.savefig(folder_path_figure+'\pie1.jpeg', dpi=200, bbox_inches='tight')
             sheet.insert_image('H2', folder_path_figure+'\pie1.jpeg')
             plt.close()
 
-            df_for_plot2 = df[df['Количество без дубликтов'] > 0] 
+            df_for_plot2 = df[df['counts_not_dubl'] > 0] 
 
-            plt.pie(df_for_plot2['Количество без дубликтов'], labels=df_for_plot2['Название категории'], radius=1.0)
+            plt.pie(df_for_plot2['counts_not_dubl'], labels=df_for_plot2['Название категории'], radius=1.0)
             plt.title('Количество сообщений без дубликатов по категориям')
             plt.savefig(folder_path_figure+'\pie2.jpeg', dpi=200, bbox_inches='tight')
             sheet.insert_image('H25', folder_path_figure+'\pie2.jpeg')
             plt.close()
 
-            df_for_plot3 = df[df['Количество дубликтов'] > 0] 
+            df_for_plot3 = df[df['count_dublic'] > 0] 
 
-            plt.pie(df_for_plot3['Количество дубликтов'], labels=df_for_plot3['Название категории'], radius=1.0)
+            plt.pie(df_for_plot3['count_dublic'], labels=df_for_plot3['Название категории'], radius=1.0)
             plt.title('Количество дубликатов по категориям')
             plt.savefig(folder_path_figure+'\pie3.jpeg', dpi=200, bbox_inches='tight')
             sheet.insert_image('H48', folder_path_figure+'\pie3.jpeg')
@@ -111,9 +111,9 @@ class Clussifier():
 
             for key, value in dictionary.items():
                 idshki = []
-                for el in value['Сообщения без дубликтов']:
+                for el in value['msg без дубликтов']:
                     idshki.append(self.collector[el])
-                new_df = pd.DataFrame(list(zip(idshki, value['Сообщения без дубликтов'])), columns =['ID канала', 'Сообщения без дубликтов'])
+                new_df = pd.DataFrame(list(zip(idshki, value['msg без дубликтов'])), columns =['ID канала', 'msg без дубликтов'])
                 new_df.to_excel(writer, sheet_name=key)
                 sheet = writer.sheets[key]
                 sheet.set_column('B:B', 15)
@@ -137,47 +137,47 @@ class Clussifier():
     def main(self, target):
         answer_for_cheking = []
         answer = {
-                'Блоги': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Новости и СМИ': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Развлечения и юмор': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Технологии': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Экономика': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Бизнес и стартапы': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Криптовалюты': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Путешествия': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Маркетинг, PR, реклама': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Психология': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Дизайн': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Политика': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Искусство': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Право': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Образование и познавательное': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Спорт': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Мода и красота': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Здоровье и медицина': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Картинки и фото': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Софт и приложения': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Видео и фильмы': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Музыка': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Игры': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Еда и кулинария': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Цитаты': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Рукоделие': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Финансы': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Шоубиз': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []},
-                'Другое': {'Общее количество': 0, 'Количество без дубликтов': 0, 'Сообщения': []}
+                'Блоги': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Новости и СМИ': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Развлечения и юмор': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Технологии': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Экономика': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Бизнес и стартапы': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Криптовалюты': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Путешествия': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Маркетинг, PR, реклама': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Психология': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Дизайн': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Политика': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Искусство': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Право': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Образование и познавательное': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Спорт': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Мода и красота': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Здоровье и медицина': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Картинки и фото': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Софт и приложения': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Видео и фильмы': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Музыка': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Игры': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Еда и кулинария': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Цитаты': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Рукоделие': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Финансы': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Шоубиз': {'counts': 0, 'counts_not_dubl': 0, 'msg': []},
+                'Другое': {'counts': 0, 'counts_not_dubl': 0, 'msg': []}
                 }
 
         for element in target:
             el_cat = self.cat_name[self.clussifier.predict(element)]
-            answer[el_cat]['Общее количество'] += 1
-            answer[el_cat]['Сообщения'].append(element)
+            answer[el_cat]['counts'] += 1
+            answer[el_cat]['msg'].append(element)
             answer_for_cheking.append([element, el_cat])
 
         for value in answer.values():
-            value['Сообщения без дубликтов'] = self.drop_dublikates(value['Сообщения'], param=80)
-            value['Количество без дубликтов'] = len(value['Сообщения без дубликтов'])
-            value['Количество дубликтов'] = value['Общее количество'] - value['Количество без дубликтов']
+            value['msg без дубликтов'] = self.drop_dublikates(value['msg'], param=80)
+            value['counts_not_dubl'] = len(value['msg без дубликтов'])
+            value['count_dublic'] = value['counts'] - value['counts_not_dubl']
 
         # print(answer)
         self.crate_xlsx(answer)
