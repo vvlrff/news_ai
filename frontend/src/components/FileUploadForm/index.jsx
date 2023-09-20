@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import api from "../../api";
 import s from "./FileUploadForm.module.scss";
 
+import Loader from "../Loader";
+
 const FileUploadForm = () => {
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState("");
@@ -61,17 +63,20 @@ const FileUploadForm = () => {
                 className={s.input}
             />
             {fileName === "" ? (
-                <p className={s.p}>
-                    Перетащите свои файлы сюда или щелкните в этой области
-                </p>
+                <>
+                    <p className={s.p}>
+                        Перетащите свои файлы сюда или щелкните в этой области
+                    </p>
+                </>
             ) : (
-                <p className={s.p}>
-                    Выбранный файл: {fileName}
-                </p>
+                <p className={s.p}>Выбранный файл: {fileName}</p>
             )}
 
             {isLoading ? (
-                <p className={s.p}>Идет обработка данных...</p>
+                <>
+                    <Loader></Loader>
+                    <p className={s.p}>Идет обработка данных...</p>
+                </>
             ) : (
                 <>
                     <button

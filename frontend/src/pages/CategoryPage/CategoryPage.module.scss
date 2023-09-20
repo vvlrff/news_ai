@@ -13,3 +13,53 @@
     margin-top: 10px;
     padding-left: 100px;
 }
+
+.card {
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding: 30px;
+    width: 50%;
+    background: linear-gradient(50deg, #0c2956, #07c7ee63);
+    background-size: 400% 400%;
+    border-radius: 12px;
+    line-height: 26px;
+    text-align: center;
+
+    -webkit-animation: gradientSwap 9s ease infinite;
+    -moz-animation: gradientSwap 9s ease infinite;
+    animation: gradientSwap 9s ease infinite;
+}
+
+@-webkit-keyframes gradientSwap {
+    0% {
+        background-position: 0% 86%;
+    }
+    50% {
+        background-position: 100% 15%;
+    }
+    100% {
+        background-position: 0% 86%;
+    }
+}
+@-moz-keyframes gradientSwap {
+    0% {
+        background-position: 0% 86%;
+    }
+    50% {
+        background-position: 100% 15%;
+    }
+    100% {
+        background-position: 0% 86%;
+    }
+}
+@keyframes gradientSwap {
+    0% {
+        background-position: 0% 86%;
+    }
+    50% {
+        background-position: 100% 15%;
+    }
+    100% {
+        background-position: 0% 86%;
+    }
+}
