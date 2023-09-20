@@ -1,4 +1,4 @@
-from bert_classifier import BertClassifier
+from .bert_classifier import BertClassifier
 import pandas as pd
 import matplotlib.pyplot as plt
 from fuzzywuzzy import fuzz
