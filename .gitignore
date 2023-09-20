@@ -9,3 +9,4 @@ NLP_FORCE/RuBERT_NaturaLP.pt
 NLP_FORCE/LaBSE_NaturaLP.pt
 server/src/api/weights/LaBSE_5.pt
 __pycache__
+*.pt
