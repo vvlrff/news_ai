@@ -1,0 +1,29 @@
+.recharts-responsive-container {
+    height: 1000px !important;
+}
+
+.recharts-pie-labels {
+    pointer-events: none;
+}
+
+.custom_tooltip {
+    padding: 20px;
+    color: white;
+    background-color: #154c9e;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+    opacity: 0.8;
+}
+
+.recharts-wrapper {
+    margin: 0 auto;
+}
+
+.result__question {
+    text-align: center;
+    color: white;
+    font-size: 26px;
+}
