@@ -9,6 +9,8 @@ const ResultPage = () => {
     const { state } = location;
     const [selectedId, setSelectedId] = useState(null);
 
+    console.log(state.response)
+
     const submitData = (categoryData) => {
         navigate(`/result/${categoryData.category}`, { state: categoryData });
     };
