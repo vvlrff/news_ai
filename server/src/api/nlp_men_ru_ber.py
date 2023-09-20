@@ -1,16 +1,15 @@
-from .bert_classifier import BertClassifier
+from bert_classifier import BertClassifier
 import pandas as pd
 import matplotlib.pyplot as plt
 from fuzzywuzzy import fuzz
 import os
 
 
-
-folder_path_to_test = os.getcwd() + r'\src\api\INPUT_\test_data.xlsx'
+folder_path_to_test = os.getcwd() + r'\src\api\INPUT_\test_data_2.xlsx'
 folder_path_to_test_answer = os.getcwd() + r'\src\api\INPUT_\answer.xlsx'
 folder_path_to_test_answer_CHECK = os.getcwd() + r'\src\api\INPUT_\NaturaLP_ANSWER_FOR_CHECKING.xlsx'
 
-folder_path_model = os.getcwd() + r'\src\api\weights\RuBERT_NaturaLP.pt'  # путь к папке, в которую нужно сохранить файл
+folder_path_model = os.getcwd() + r'\src\api\weights\RuBERT_NaturaLP_2.pt'  # путь к папке, в которую нужно сохранить файл
 folder_path_figure = os.getcwd() + r'\src\api\figure_nlp'
 
 class Clussifier():
@@ -62,8 +61,6 @@ class Clussifier():
     def crate_xlsx_for_cheking(self, list_data):
         for news_article in list_data:
             news_article.insert(0, self.collector[news_article[0]])
-
-        idshki = []
 
         df = pd.DataFrame(list_data)
         df.columns = ['id', 'Новостное сообщение', 'Категория']
@@ -129,7 +126,6 @@ class Clussifier():
                         cleaned_target.discard(list_from_set[j])
                     else:
                         cleaned_target.discard(list_from_set[i])
-                    print(list_from_set[j], list_from_set[i])
 
         return list(cleaned_target)
     
@@ -172,12 +168,13 @@ class Clussifier():
             el_cat = self.cat_name[self.clussifier.predict(element)]
             answer[el_cat]['Общее количество'] += 1
             answer[el_cat]['Сообщения'].append(element)
-            answer_for_cheking.append([element, el_cat])
 
-        for value in answer.values():
+        for key, value in answer.items():
             value['Сообщения без дубликтов'] = self.drop_dublikates(value['Сообщения'], param=80)
             value['Количество без дубликтов'] = len(value['Сообщения без дубликтов'])
             value['Количество дубликтов'] = value['Общее количество'] - value['Количество без дубликтов']
+            for uniq_new in value['Сообщения без дубликтов']:
+                answer_for_cheking.append([uniq_new, key])
 
         # print(answer)
         self.crate_xlsx(answer)

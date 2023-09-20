@@ -9,8 +9,8 @@ const Navbar = () => {
                 <div className={s.container}>
                     <div className={s.left}></div>
                     <div className={s.linkContainer}>
-                        <Link to="/">HomePage</Link>
-                        <Link to="/upload">UploadPage</Link>
+                        <Link to="/">На главную</Link>
+                        <Link to="/upload">Загрузить файл</Link>
                     </div>
                 </div>
             </nav>
