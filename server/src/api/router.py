@@ -31,26 +31,16 @@ async def upload_file(file: UploadFile):
     return JSONResponse(content=data_out)
 
 @router.post("/vigruzka")
-async def upload_file(file: str):
+async def upload_file():
     folder_path = os.getcwd() + r'\src\api\INPUT_\\'  # путь к папке, в которую нужно сохранить файл
-    file_path = os.path.join(folder_path, file)  # объединяем путь к папке и имени файла
+    file_path = os.path.join(folder_path, 'answer.xlsx')  # объединяем путь к папке и имени файла
 
-    return FileResponse(path=file_path,filename=file, media_type='multipart/form-data' )
+    return FileResponse(path=file_path,filename='answer.xlsx', media_type='multipart/form-data' )
 
 
 @router.post("/vigruzka_for_chek")
-async def upload_file(file: str):
+async def upload_file():
     folder_path = os.getcwd() + r'\src\api\INPUT_\\NaturaLP_ANSWER_FOR_CHECKING.xlsx'  # путь к папке, в которую нужно сохранить файл
-    # file_path = os.path.join(folder_path, file)  # объединяем путь к папке и имени файла
-
-    return FileResponse(path=folder_path,filename='NaturaLP_ANSWER_FOR_CHECKING', media_type='multipart/form-data' )
+    return FileResponse(path=folder_path,filename='NaturaLP_ANSWER_FOR_CHECKING.xlsx', media_type='multipart/form-data' )
 
 
-
-# @router.get("/answer_to_draw")
-# async def upload_file(path_to_input_data: str):
-#     test = Clussifier()
-#     folder_path = os.getcwd() + r'\src\api\INPUT_\\'+path_to_input_data
-#     test.crate_xlsx(test.main(test.parse_xlsx(folder_path)))
-
-#     return FileResponse(path=file_path,filename=file, media_type='multipart/form-data' )
