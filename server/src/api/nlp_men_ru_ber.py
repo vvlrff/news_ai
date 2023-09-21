@@ -5,15 +5,15 @@ from fuzzywuzzy import fuzz
 import os
 
 
-folder_path_to_test = os.getcwd() + r'\src\api\INPUT_\test_data_2.xlsx'
-folder_path_to_test_answer = os.getcwd() + r'\src\api\INPUT_\answer.xlsx' # путь к файлу для проверки
-folder_path_to_test_answer_CHECK = os.getcwd() + r'\src\api\INPUT_\NaturaLP_ANSWER_FOR_CHECKING.xlsx' # путь к файлу для интересного ответа
+folder_path_to_test = os.getcwd() + r'/src/api/INPUT_/test_data_2.xlsx'
+folder_path_to_test_answer = os.getcwd() + r'/src/api/INPUT_/answer.xlsx'
+folder_path_to_test_answer_CHECK = os.getcwd() + r'/src/api/INPUT_/NaturaLP_ANSWER_FOR_CHECKING.xlsx'
 
-folder_path_model = os.getcwd() + r'\src\api\weights\LaBSE_NaturaLP.pt'  # путь к модели
-folder_path_figure = os.getcwd() + r'\src\api\figure_nlp' # путь к папке с графиками для Excel
+folder_path_model = os.getcwd() + r'/src/api/weights/LaBSE_NaturaLP.pt'  # путь к папке, в которую нужно сохранить файл
+folder_path_figure = os.getcwd() + r'/src/api/figure_nlp'
 
 class Clussifier():
-
+    
     """
     Класс Clussifier используется для классификации новостей
 
@@ -94,7 +94,7 @@ class Clussifier():
             news_article.insert(0, self.collector[news_article[0]])
 
         df = pd.DataFrame(list_data)
-        df.columns = ['channel_id', 'text', 'category']
+        df.columns = ['id', 'Новостное сообщение', 'Категория']
 
         with pd.ExcelWriter(folder_path_to_test_answer_CHECK, engine='xlsxwriter') as writer:
             df.to_excel(writer, sheet_name='NaturaLP')
@@ -117,24 +117,24 @@ class Clussifier():
             
             plt.pie(df_for_plot1['Общее количество'], labels=df_for_plot1['Название категории'], radius=1.0)
             plt.title('Общее количество сообщений по категориям')
-            plt.savefig(folder_path_figure+'\pie1.jpeg', dpi=200, bbox_inches='tight')
-            sheet.insert_image('H2', folder_path_figure+'\pie1.jpeg')
+            plt.savefig(folder_path_figure+'/pie1.jpeg', dpi=200, bbox_inches='tight')
+            sheet.insert_image('H2', folder_path_figure+'/pie1.jpeg')
             plt.close()
 
             df_for_plot2 = df[df['Количество без дубликатов'] > 0] 
 
             plt.pie(df_for_plot2['Количество без дубликатов'], labels=df_for_plot2['Название категории'], radius=1.0)
             plt.title('Количество сообщений без дубликатов по категориям')
-            plt.savefig(folder_path_figure+'\pie2.jpeg', dpi=200, bbox_inches='tight')
-            sheet.insert_image('H25', folder_path_figure+'\pie2.jpeg')
+            plt.savefig(folder_path_figure+'/pie2.jpeg', dpi=200, bbox_inches='tight')
+            sheet.insert_image('H25', folder_path_figure+'/pie2.jpeg')
             plt.close()
 
             df_for_plot3 = df[df['Количество дубликатов'] > 0] 
 
             plt.pie(df_for_plot3['Количество дубликатов'], labels=df_for_plot3['Название категории'], radius=1.0)
             plt.title('Количество дубликатов по категориям')
-            plt.savefig(folder_path_figure+'\pie3.jpeg', dpi=200, bbox_inches='tight')
-            sheet.insert_image('H48', folder_path_figure+'\pie3.jpeg')
+            plt.savefig(folder_path_figure+'/pie3.jpeg', dpi=200, bbox_inches='tight')
+            sheet.insert_image('H48', folder_path_figure+'/pie3.jpeg')
             plt.close()
 
             for key, value in dictionary.items():
@@ -207,6 +207,7 @@ class Clussifier():
             for uniq_new in value['Сообщения без дубликатов']:
                 answer_for_cheking.append([uniq_new, key])
 
+        # print(answer)
         self.crate_xlsx(answer)
         self.crate_xlsx_for_cheking(answer_for_cheking)
         return answer
