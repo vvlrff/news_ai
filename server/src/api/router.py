@@ -1,12 +1,7 @@
-import csv
-import json
 import os
-import random as rnd
-import re
-import sys
 import pickle
 
-from fastapi import APIRouter, Body, Depends, File, Query, UploadFile
+from fastapi import APIRouter, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
 
 from .nlp_men_ru_ber import Clussifier
@@ -25,7 +20,6 @@ async def upload_file(file: UploadFile):
     with open(file_path, "wb") as f:  # открываем файл на запись
         f.write(await file.read())  # записываем содержимое загруженного файла в созданный файл
 
-    # data = test.crate_xlsx(test.main(test.parse_xlsx(file_path)))
     data_out = test.main(test.parse_xlsx(file_path))
     pickle.dump(data_out, file = open("data_out.pickle", "wb"))
 
@@ -51,5 +45,3 @@ async def upload_file():
     return JSONResponse(
         content=company1_reloaded
     )
-
-# company1_reloaded = pickle.load(open("data_out.pickle", "rb"))
