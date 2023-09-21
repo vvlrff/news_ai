@@ -5,11 +5,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from fuzzywuzzy import fuzz
 
-folder_path_to_test = os.getcwd() + r'\src\api\INPUT_\test_data.xlsx'
-folder_path_to_test_answer = os.getcwd() + r'\src\api\INPUT_\answer.xlsx'
+folder_path_to_test = os.getcwd() + r'/src/api/INPUT_/test_data.xlsx'
+folder_path_to_test_answer = os.getcwd() + r'/src/api/INPUT_/answer.xlsx'
 
-folder_path_model = os.getcwd() + r'\src\api\weights\LaBSE_5.pt'  # путь к папке, в которую нужно сохранить файл
-folder_path_figure = os.getcwd() + r'\src\api\figure_nlp'
+folder_path_model = os.getcwd() + r'/src/api/weights/LaBSE_5.pt'  # путь к папке, в которую нужно сохранить файл
+folder_path_figure = os.getcwd() + r'/src/api/figure_nlp'
 class Clussifier():
     def __init__(self):
         self.clussifier = BertClassifier(model_path=folder_path_model, tokenizer_path='cointegrated/LaBSE-en-ru')
@@ -48,15 +48,15 @@ class Clussifier():
 
             plt.pie(df['Количество без дубликатов'], labels=df['Название категории'], radius=1.0)
             plt.title('Количество сообщений без дубликатов по категориям')
-            # plt.savefig(r'NLP_FORCE\pie2.jpeg', dpi=200, bbox_inches='tight')
-            plt.savefig(folder_path_figure +'\pie2.jpeg', dpi=200, bbox_inches='tight')
-            sheet.insert_image('F22', folder_path_figure+'\pie2.jpeg')
+            # plt.savefig(r'NLP_FORCE/pie2.jpeg', dpi=200, bbox_inches='tight')
+            plt.savefig(folder_path_figure +'/pie2.jpeg', dpi=200, bbox_inches='tight')
+            sheet.insert_image('F22', folder_path_figure+'/pie2.jpeg')
             plt.close()
 
             plt.pie(df['Общее количество'], labels=df['Название категории'], radius=1.0)
             plt.title('Общее количество сообщений по категориям')
-            plt.savefig(folder_path_figure+'\pie1.jpeg', dpi=200, bbox_inches='tight')
-            sheet.insert_image('F2', folder_path_figure+'\pie1.jpeg')
+            plt.savefig(folder_path_figure+'/pie1.jpeg', dpi=200, bbox_inches='tight')
+            sheet.insert_image('F2', folder_path_figure+'/pie1.jpeg')
             plt.close()
 
             for key, value in dictionary.items():
