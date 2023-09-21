@@ -24,10 +24,11 @@
        npm i
        npm start
 ```
-
-* [![React][React.js]][React-url]
-* [![FastApi][FastApi.py]][FastApi-url]
-
+## Инструкция для запуска Docker'a:
+Для запуска Docker'a требуется выполнить следующие команды в консоле:
+```
+    docker-compose up --build
+```
 ## Цели:
 1) Улучшении сервиса «AI News»;
 2) Внедрение технологий ИИ;
