@@ -14,7 +14,7 @@
 ![image](https://github.com/vvlrff/news_ai/assets/125179070/c1b2cb16-d263-4edd-baa2-01fe87c85e08)
 
 ## Инструкция:
-Для запуска проекта требуется выполнить следующие команды в консоле:
+Для запуска проекта требуется выполнить следующие команды в консоли:
 ```
     pip install npm
     cd server/
@@ -24,10 +24,11 @@
        npm i
        npm start
 ```
-
-* [![React][React.js]][React-url]
-* [![FastApi][FastApi.py]][FastApi-url]
-
+## Инструкция для запуска Docker'a:
+Для запуска Docker'a требуется выполнить следующие команды в консоли:
+```
+    news_ai/docker-compose up --build
+```
 ## Цели:
 1) Улучшении сервиса «AI News»;
 2) Внедрение технологий ИИ;
