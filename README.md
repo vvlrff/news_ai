@@ -2,7 +2,17 @@
 
 Команда "NaturaLP" представляет удобное и эффективное решение для улучшения работы сервиса "AI News" путем внедрения технологий искусственного интеллекта и машинного обучения, а также инновационных подходов визуализации данных.
 
-## ИНСТРУКЦИЯ:
+## Пример входных данных:
+![image](https://github.com/vvlrff/news_ai/assets/125179070/ba5a87c5-188f-4bd5-9aa5-2b632fe6ff32)
+
+## Пример выходных данных:
+![image](https://github.com/vvlrff/news_ai/assets/125179070/83a77b3a-997c-4f19-a72e-7eeab3c11b19)
+![image](https://github.com/vvlrff/news_ai/assets/125179070/9bf67de8-7c97-4f57-93bf-e15aec10df6d)
+![image](https://github.com/vvlrff/news_ai/assets/125179070/406c8929-6ae0-4fb8-aab2-3a4844cc8a1e)
+![image](https://github.com/vvlrff/news_ai/assets/125179070/3d0d70c3-80de-4819-8257-555efca3e603)
+![image](https://github.com/vvlrff/news_ai/assets/125179070/c1b2cb16-d263-4edd-baa2-01fe87c85e08)
+
+## Инструкция:
 Для запуска проекта требуется выполнить следующие команды в консоле:
 ```
     pip install npm
