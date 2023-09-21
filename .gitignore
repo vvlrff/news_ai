@@ -3,10 +3,5 @@ Clussifier/__pycache__/
 Parser/__pycache__/
 ~$NaturaLP_ANSWER.xlsx
 ~$test_data.xlsx
-NLP/LaBSE_5.pt
-NLP_FORCE/RuBERT_NaturaLP_2.pt
-NLP_FORCE/RuBERT_NaturaLP.pt
-NLP_FORCE/LaBSE_NaturaLP.pt
-server/src/api/weights/LaBSE_5.pt
 __pycache__
 *.pt
