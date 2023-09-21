@@ -6,16 +6,47 @@ import os
 
 
 folder_path_to_test = os.getcwd() + r'\src\api\INPUT_\test_data_2.xlsx'
-folder_path_to_test_answer = os.getcwd() + r'\src\api\INPUT_\answer.xlsx'
-folder_path_to_test_answer_CHECK = os.getcwd() + r'\src\api\INPUT_\NaturaLP_ANSWER_FOR_CHECKING.xlsx'
+folder_path_to_test_answer = os.getcwd() + r'\src\api\INPUT_\answer.xlsx' # путь к файлу для проверки
+folder_path_to_test_answer_CHECK = os.getcwd() + r'\src\api\INPUT_\NaturaLP_ANSWER_FOR_CHECKING.xlsx' # путь к файлу для интересного ответа
 
-folder_path_model = os.getcwd() + r'\src\api\weights\RuBERT_NaturaLP_VK.pt'  # путь к папке, в которую нужно сохранить файл
-folder_path_figure = os.getcwd() + r'\src\api\figure_nlp'
+folder_path_model = os.getcwd() + r'\src\api\weights\NaturaLP_2K_BERT.pt'  # путь к модели
+folder_path_figure = os.getcwd() + r'\src\api\figure_nlp' # путь к папке с графиками для Excel
 
 class Clussifier():
+
+    """
+    Класс Clussifier используется для классификации новостей
+
+    Основное применение - определение категории новостного сообщения 
+    и удаление дубликатов
+
+    Attributes
+    ----------
+    model_path : str
+        путь до модели
+    tokenizer_path : str
+        путь до токинезатора
+
+    Methods
+    -------
+    parse_xlsx(path)
+        Принимает путь до Excel-файла и возращает словарь типа {новость: id}
+
+    crate_xlsx_for_cheking(list_data)
+        Принимает список, состоящий из новостей и их категорий, создает Excel-файл для проверки
+
+    crate_xlsx_for_cheking(dict_data)
+        Принимает словарь, на его основе создает Excel-файл для анализа (с графиками и разными листами)
+
+    drop_dublikates(target, param):
+        Принимает список новостей одной категории и значение уникальности (0-100), возвращает список без дубликатов
+
+    main(list_data):
+        Принимает список тектов новостей, создает 2 Excel-файла и передает данные для отображения на фронте
+    """
+
     def __init__(self):
         self.clussifier = BertClassifier(model_path=folder_path_model, tokenizer_path='cointegrated/rubert-tiny')
-        # self.clussifier = BertClassifier(model_path=folder_path_model, tokenizer_path='cointegrated/LaBSE-en-ru')
         
         self.cat_name = {
                         0: 'Блоги',
@@ -176,7 +207,6 @@ class Clussifier():
             for uniq_new in value['Сообщения без дубликатов']:
                 answer_for_cheking.append([uniq_new, key])
 
-        # print(answer)
         self.crate_xlsx(answer)
         self.crate_xlsx_for_cheking(answer_for_cheking)
         return answer
