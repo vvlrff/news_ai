@@ -1,18 +1,25 @@
 import { PieChart, Pie, ResponsiveContainer, Tooltip } from "recharts";
 import "./graph-master.css";
+import { useMemo } from "react";
 
 const PieGraph = ({ data }) => {
-    const list = [];
+    const list = useMemo(() => {
+        const list = [];
 
-    for (const key in data) {
-        list.push({
-            name: key,
-            amount: data[key]["Общее количество"],
-            fill:
-                "#" +
-                (((1 << 24) * Math.random()) | 0).toString(16).padStart(6, "0"),
-        });
-    }
+        for (const key in data) {
+            list.push({
+                name: key,
+                amount: data[key]["Общее количество"],
+                fill:
+                    "#" +
+                    (((1 << 24) * Math.random()) | 0)
+                        .toString(16)
+                        .padStart(6, "0"),
+            });
+        }
+        return list;
+    }, [data]);
+
     // console.log(list);
     // console.log(amount);
     const CustomTooltip = ({ payload, label, active }) => {
