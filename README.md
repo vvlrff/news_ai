@@ -15,6 +15,7 @@
 
 ## Инструкция:
 Скачать модель и положить в папку: news_ai\server\src\api\weights\LaBSE_NaturaLP.pt
+
 Ссылка для скачивания: https://drive.google.com/drive/folders/1V_Uw9D60grLkRahNTjOXuBdIT-yB-Sne
 
 Для запуска проекта требуется выполнить следующие команды в консоли:
@@ -29,6 +30,7 @@
 ```
 ## Инструкция для запуска Docker'a:
 Скачать модель и положить в папку: news_ai\server\src\api\weights\LaBSE_NaturaLP.pt
+
 Ссылка для скачивания: https://drive.google.com/drive/folders/1V_Uw9D60grLkRahNTjOXuBdIT-yB-Sne
 
 Для запуска Docker'a требуется выполнить следующие команды в консоли:
