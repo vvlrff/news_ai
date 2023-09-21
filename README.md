@@ -14,10 +14,6 @@
 ![image](https://github.com/vvlrff/news_ai/assets/125179070/c1b2cb16-d263-4edd-baa2-01fe87c85e08)
 
 ## Инструкция:
-Скачать модель и положить в папку: news_ai\server\src\api\weights\LaBSE_NaturaLP.pt
-
-Ссылка для скачивания: [https://drive.google.com/drive/folders/1V_Uw9D60grLkRahNTjOXuBdIT-yB-Sne](https://drive.google.com/u/0/uc?id=1cDOxDv1eWqTGCBcrLc3M-i8vTvZp9naq&export=download)
-
 Для запуска проекта требуется выполнить следующие команды в консоли:
 ```
     pip install npm
@@ -29,10 +25,6 @@
        npm start
 ```
 ## Инструкция для запуска Docker'a:
-Скачать модель и положить в папку: news_ai\server\src\api\weights\LaBSE_NaturaLP.pt
-
-Ссылка для скачивания: [https://drive.google.com/drive/folders/1V_Uw9D60grLkRahNTjOXuBdIT-yB-Sne](https://drive.google.com/u/0/uc?id=1cDOxDv1eWqTGCBcrLc3M-i8vTvZp9naq&export=download)
-
 Для запуска Docker'a требуется выполнить следующие команды в консоли:
 ```
     news_ai/docker-compose up --build
