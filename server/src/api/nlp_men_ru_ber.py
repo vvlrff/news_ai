@@ -9,12 +9,12 @@ folder_path_to_test = os.getcwd() + r'/src/api/INPUT_/test_data_2.xlsx'
 folder_path_to_test_answer = os.getcwd() + r'/src/api/INPUT_/answer.xlsx'
 folder_path_to_test_answer_CHECK = os.getcwd() + r'/src/api/INPUT_/NaturaLP_ANSWER_FOR_CHECKING.xlsx'
 
-folder_path_model = os.getcwd() + r'/src/api/weights/RuBERT_NaturaLP_VK.pt'  # путь к папке, в которую нужно сохранить файл
+folder_path_model = os.getcwd() + r'/src/api/weights/LaBSE_NaturaLP.pt'  # путь к папке, в которую нужно сохранить файл
 folder_path_figure = os.getcwd() + r'/src/api/figure_nlp'
 
 class Clussifier():
     def __init__(self):
-        self.clussifier = BertClassifier(model_path=folder_path_model, tokenizer_path='cointegrated/rubert-tiny')
+        self.clussifier = BertClassifier(model_path=folder_path_model, tokenizer_path='cointegrated/LaBSE-en-ru')
         # self.clussifier = BertClassifier(model_path=folder_path_model, tokenizer_path='cointegrated/LaBSE-en-ru')
         
         self.cat_name = {
