@@ -57,6 +57,9 @@
 3) Развитие алгоритма;
 4) Выпуск в Production.
 
+## Ссылка на Google диск (презентация и демонстрация):
+https://drive.google.com/drive/folders/1V_Uw9D60grLkRahNTjOXuBdIT-yB-Sne?usp=sharing
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
