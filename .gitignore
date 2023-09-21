@@ -1,7 +1,0 @@
-venv/
-Clussifier/__pycache__/
-Parser/__pycache__/
-~$NaturaLP_ANSWER.xlsx
-~$test_data.xlsx
-__pycache__
-*.pt
