@@ -94,7 +94,7 @@ class Clussifier():
             news_article.insert(0, self.collector[news_article[0]])
 
         df = pd.DataFrame(list_data)
-        df.columns = ['id', 'Новостное сообщение', 'Категория']
+        df.columns = ['channel_id', 'text', 'category']
 
         with pd.ExcelWriter(folder_path_to_test_answer_CHECK, engine='xlsxwriter') as writer:
             df.to_excel(writer, sheet_name='NaturaLP')
