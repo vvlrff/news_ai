@@ -27,7 +27,7 @@
 Процесс обучения):   
 ![image](https://github.com/vvlrff/news_ai/assets/125179070/a9dc1c1a-6df9-49a0-9fb4-55418bf4caaf)
 
-Метрики после обучения:   
+Score на тестовых данных:      
 Precision: 0.876   
 Recall: 0.874   
 F1-score: 0.874   
