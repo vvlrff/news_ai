@@ -13,17 +13,6 @@
 ![image](https://github.com/vvlrff/news_ai/assets/125179070/3d0d70c3-80de-4819-8257-555efca3e603)
 ![image](https://github.com/vvlrff/news_ai/assets/125179070/c1b2cb16-d263-4edd-baa2-01fe87c85e08)
 
-## Инструкция:
-Для запуска проекта требуется выполнить следующие команды в консоли:
-```
-    pip install npm
-    cd server/
-    pip install -r requirements.txt
-       uvicorn src.main:app --reload
-    frontend/
-       npm i
-       npm start
-```
 ## Инструкция для запуска Docker'a:
 Для запуска Docker'a требуется выполнить следующие команды в консоли:
 ```
